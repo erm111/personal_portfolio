@@ -16,7 +16,7 @@ const About = () => {
             <img
               src={portfolioImage}
               alt="Developer workspace"
-              className="rounded-lg shadow-lg"
+              className="rounded-lg shadow-lg w-full max-w-2xl"
             />
           </div>
 
