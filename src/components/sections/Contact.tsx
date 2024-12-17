@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+  const form = useRef<HTMLFormElement>(null);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Add form submission logic here
+
+    emailjs.sendForm(
+      'YOUR_SERVICE_ID',
+      'YOUR_TEMPLATE_ID',
+      form.current!,
+      'YOUR_PUBLIC_KEY'
+    )
+      .then((result) => {
+        console.log('Email sent successfully');
+        form.current?.reset();
+      }, (error) => {
+        console.log('Failed to send email:', error);
+      });
   };
 
   return (
@@ -36,12 +51,27 @@ const Contact = () => {
             <div className="mt-8">
               <h4 className="text-xl font-semibold mb-4">Follow Me</h4>
               <div className="flex space-x-4">
-                {/* Add your social media links here */}
+                <a
+                  href="https://github.com/erm111"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-blue-600"
+                >
+                  GitHub
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/nnanyere-uzoma-004136203/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-blue-600"
+                >
+                  LinkedIn
+                </a>
               </div>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form ref={form} onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                 Name
@@ -49,6 +79,7 @@ const Contact = () => {
               <input
                 type="text"
                 id="name"
+                name="user_name"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                 required
               />
@@ -60,6 +91,7 @@ const Contact = () => {
               <input
                 type="email"
                 id="email"
+                name="user_email"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                 required
               />
@@ -70,6 +102,7 @@ const Contact = () => {
               </label>
               <textarea
                 id="message"
+                name="message"
                 rows={4}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                 required
