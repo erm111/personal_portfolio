@@ -9,11 +9,12 @@ const Contact = () => {
     e.preventDefault();
 
     emailjs.sendForm(
-      'YOUR_SERVICE_ID',
-      'YOUR_TEMPLATE_ID',
+      'service_uptmr64',
+      'template_gth5x7r',
       form.current!,
-      'YOUR_PUBLIC_KEY'
+      'AJy3UPVEVe5k43JCf'
     )
+    
       .then((result) => {
         console.log('Email sent successfully');
         form.current?.reset();
