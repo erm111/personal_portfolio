@@ -1,12 +1,15 @@
 import React, { useRef } from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Contact = () => {
   const form = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const loadingToast = toast.loading('Sending message...');
 
     emailjs.sendForm(
       'service_uptmr64',
@@ -14,17 +17,38 @@ const Contact = () => {
       form.current!,
       'AJy3UPVEVe5k43JCf'
     )
-    
-      .then((result) => {
-        console.log('Email sent successfully');
-        form.current?.reset();
-      }, (error) => {
-        console.log('Failed to send email:', error);
+    .then((result) => {
+      toast.dismiss(loadingToast);
+      toast.success('Message sent successfully!', {
+        duration: 4000,
+        position: 'top-center',
+        style: {
+          background: '#4CAF50',
+          color: '#fff',
+          padding: '16px',
+          borderRadius: '10px',
+        },
+        icon: '✉️',
       });
+      form.current?.reset();
+    }, (error) => {
+      toast.dismiss(loadingToast);
+      toast.error('Failed to send message. Please try again.', {
+        duration: 4000,
+        position: 'top-center',
+        style: {
+          background: '#f44336',
+          color: '#fff',
+          padding: '16px',
+          borderRadius: '10px',
+        },
+      });
+    });
   };
 
   return (
     <section id="contact" className="py-20 bg-gray-50">
+      <Toaster />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Get in Touch</h2>
@@ -52,17 +76,17 @@ const Contact = () => {
             <div className="mt-8">
               <h4 className="text-xl font-semibold mb-4">Follow Me</h4>
               <div className="flex space-x-4">
-                <a
-                  href="https://github.com/erm111"
-                  target="_blank"
+                <a 
+                  href="https://github.com/erm111" 
+                  target="_blank" 
                   rel="noopener noreferrer"
                   className="text-gray-600 hover:text-blue-600"
                 >
                   GitHub
                 </a>
-                <a
-                  href="https://www.linkedin.com/in/nnanyere-uzoma-004136203/"
-                  target="_blank"
+                <a 
+                  href="https://www.linkedin.com/in/nnanyere-uzoma-004136203/" 
+                  target="_blank" 
                   rel="noopener noreferrer"
                   className="text-gray-600 hover:text-blue-600"
                 >
