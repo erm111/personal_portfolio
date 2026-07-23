@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PulseSocial — Analytics Dashboard Prototype</title>
+<style>
+  :root{
+    --bg:#0a0f1a;--panel:#111827;--soft:#1a2334;--line:#243247;
+    --text:#eef2fb;--muted:#8ea0bd;--a1:#22d3ee;--a2:#a78bfa;--a3:#f472b6;--a4:#34d399;
+    --up:#34d399;--down:#fb7185;--radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:
+    radial-gradient(1000px 500px at 100% -10%,rgba(167,139,250,.15),transparent),
+    radial-gradient(800px 400px at 0% 0%,rgba(34,211,238,.10),transparent),var(--bg);
+    color:var(--text);min-height:100vh}
+  .wrap{max-width:1280px;margin:0 auto;padding:20px}
+  .top{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+  .logo{font-weight:800;font-size:21px;display:flex;align-items:center;gap:9px}
+  .logo b{background:linear-gradient(90deg,var(--a1),var(--a2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .back{color:var(--muted);text-decoration:none;font-size:13px}.back:hover{color:var(--text)}
+  .seg{margin-left:auto;display:flex;background:var(--soft);border:1px solid var(--line);border-radius:11px;padding:4px}
+  .seg button{background:none;border:none;color:var(--muted);padding:7px 14px;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px}
+  .seg button.on{background:linear-gradient(90deg,var(--a1),var(--a2));color:#05121a}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}
+  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+  .kpi .h{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px;font-weight:600}
+  .kpi .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:17px}
+  .kpi .v{font-size:29px;font-weight:800;margin:8px 0 4px}
+  .chg{font-size:12px;font-weight:700;display:inline-flex;gap:4px;align-items:center}
+  .up{color:var(--up)}.down{color:var(--down)}
+  .spark{width:100%;height:34px;margin-top:8px}
+  .grid2{display:grid;grid-template-columns:1.7fr 1fr;gap:16px;margin-bottom:18px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .card h3{font-size:15px;margin-bottom:2px}
+  .card .sub{color:var(--muted);font-size:12px;margin-bottom:16px}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--muted)}
+  .legend span{display:inline-flex;gap:6px;align-items:center}
+  .ld{width:10px;height:10px;border-radius:3px}
+  .donutwrap{display:flex;align-items:center;gap:18px}
+  .plat{display:flex;flex-direction:column;gap:12px;flex:1}
+  .prow{display:flex;align-items:center;gap:10px;font-size:13px}
+  .prow .nm{width:74px;color:var(--muted)}
+  .pbar{flex:1;height:8px;background:var(--soft);border-radius:8px;overflow:hidden}
+  .pbar i{display:block;height:100%;border-radius:8px}
+  .prow .pv{width:42px;text-align:right;font-weight:700}
+  .grid3{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;color:var(--muted);font-weight:600;padding:9px 6px;border-bottom:1px solid var(--line);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+  td{padding:11px 6px;border-bottom:1px solid var(--soft)}
+  tr:last-child td{border-bottom:none}
+  .pt{display:inline-flex;gap:7px;align-items:center;font-weight:600}
+  .pt .d{width:9px;height:9px;border-radius:3px}
+  .eng{font-weight:800}
+  .feedcard .item{display:flex;gap:11px;padding:10px 0;border-bottom:1px solid var(--soft)}
+  .feedcard .item:last-child{border:none}
+  .fav{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:14px;flex-shrink:0}
+  .ftx{font-size:13px;flex:1}
+  .ftx b{font-weight:700}
+  .fm{color:var(--muted);font-size:11px;margin-top:2px}
+  .live{display:inline-flex;gap:6px;align-items:center;color:var(--muted);font-size:12px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--up);animation:p 1.4s infinite}
+  @keyframes p{50%{opacity:.3}}
+  @media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2,.grid3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="logo">📊 <span>Pulse<b>Social</b></span></div>
+    <a class="back" href="/#projects">← Portfolio</a>
+    <div class="seg" id="seg">
+      <button data-r="7" class="on">7D</button>
+      <button data-r="30">30D</button>
+      <button data-r="90">90D</button>
+    </div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Audience Growth <span class="live" style="float:right"><span class="dot"></span> live</span></h3>
+      <div class="sub">Followers &amp; engagement over time</div>
+      <svg id="area" viewBox="0 0 720 240" preserveAspectRatio="none" style="width:100%;height:240px"></svg>
+      <div class="legend">
+        <span><span class="ld" style="background:var(--a1)"></span>Followers</span>
+        <span><span class="ld" style="background:var(--a2)"></span>Engagement</span>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Traffic by Platform</h3>
+      <div class="sub">Share of total engagement</div>
+      <div class="donutwrap">
+        <svg id="donut" width="140" height="140" viewBox="0 0 140 140"></svg>
+        <div class="plat" id="plat"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid3">
+    <div class="card">
+      <h3>Top Performing Posts</h3>
+      <div class="sub">Ranked by engagement rate</div>
+      <table><thead><tr><th>Post</th><th>Platform</th><th>Reach</th><th>Eng.</th></tr></thead>
+      <tbody id="posts"></tbody></table>
+    </div>
+    <div class="card feedcard">
+      <h3>Live Activity <span class="live" style="float:right"><span class="dot"></span> streaming</span></h3>
+      <div class="sub">Real-time mentions &amp; interactions</div>
+      <div id="feed"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const rand=(min,max)=>min+Math.floor(Math.abs(Math.sin(seed++))*(max-min));
+let seed=42;
+const PLAT=[
+  {name:'Instagram',color:'#f472b6',share:38,icon:'📸'},
+  {name:'X / Twitter',color:'#22d3ee',share:27,icon:'🐦'},
+  {name:'TikTok',color:'#a78bfa',share:21,icon:'🎵'},
+  {name:'LinkedIn',color:'#34d399',share:14,icon:'💼'},
+];
+const KPI=[
+  {label:'Total Followers',icon:'👥',bg:'#22d3ee',base:284500,chg:12.4,fmt:'k'},
+  {label:'Engagement Rate',icon:'❤️',bg:'#f472b6',base:6.8,chg:3.1,fmt:'%'},
+  {label:'Impressions',icon:'👁️',bg:'#a78bfa',base:1920000,chg:8.7,fmt:'k'},
+  {label:'Profile Visits',icon:'📈',bg:'#34d399',base:48200,chg:-2.3,fmt:'k'},
+];
+let range=7;
+
+function fmtNum(n,f){
+  if(f==='%')return n.toFixed(1)+'%';
+  if(n>=1e6)return (n/1e6).toFixed(2)+'M';
+  if(n>=1e3)return (n/1e3).toFixed(1)+'K';
+  return n.toLocaleString();
+}
+function series(n,lo,hi){seed=range*7+lo;return Array.from({length:n},()=>rand(lo,hi))}
+
+function renderKPIs(){
+  const mult=range/7;
+  document.getElementById('kpis').innerHTML=KPI.map((k,i)=>{
+    const val=k.fmt==='%'?k.base:(k.base*mult);
+    const spark=series(16,40,100);
+    const up=k.chg>=0;
+    return `<div class="kpi">
+      <div class="h"><span>${k.label}</span><span class="ic" style="background:${k.bg}22;color:${k.bg}">${k.icon}</span></div>
+      <div class="v">${fmtNum(val,k.fmt)}</div>
+      <div class="chg ${up?'up':'down'}">${up?'▲':'▼'} ${Math.abs(k.chg)}% vs last period</div>
+      <svg class="spark" viewBox="0 0 120 34" preserveAspectRatio="none">${sparkPath(spark,k.bg)}</svg>
+    </div>`;
+  }).join('');
+}
+function sparkPath(d,color){
+  const max=Math.max(...d),min=Math.min(...d),w=120,h=34;
+  const pts=d.map((v,i)=>[i/(d.length-1)*w,h-((v-min)/(max-min||1))*(h-6)-3]);
+  const line=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  const area=line+` L${w} ${h} L0 ${h} Z`;
+  const id='g'+color.replace('#','');
+  return `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="${color}" stop-opacity=".4"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>
+    <path d="${area}" fill="url(#${id})"/><path d="${line}" fill="none" stroke="${color}" stroke-width="2"/>`;
+}
+
+function renderArea(){
+  const n=range===7?7:range===30?15:24;
+  const foll=series(n,45,92), eng=series(n,20,60);
+  const svg=document.getElementById('area');
+  const W=720,H=240,pad=10;
+  function path(data,close){
+    const max=100;
+    const pts=data.map((v,i)=>[pad+i/(data.length-1)*(W-2*pad), H-pad-(v/max)*(H-2*pad)]);
+    let d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+    if(close)d+=` L${W-pad} ${H-pad} L${pad} ${H-pad} Z`;
+    return d;
+  }
+  svg.innerHTML=`
+   <defs>
+     <linearGradient id="af" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22d3ee" stop-opacity=".35"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></linearGradient>
+     <linearGradient id="ae" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a78bfa" stop-opacity=".28"/><stop offset="1" stop-color="#a78bfa" stop-opacity="0"/></linearGradient>
+   </defs>
+   ${[0,25,50,75,100].map(g=>`<line x1="${pad}" x2="${W-pad}" y1="${H-pad-(g/100)*(H-2*pad)}" y2="${H-pad-(g/100)*(H-2*pad)}" stroke="#243247" stroke-width="1"/>`).join('')}
+   <path d="${path(foll,true)}" fill="url(#af)"/>
+   <path d="${path(eng,true)}" fill="url(#ae)"/>
+   <path d="${path(foll)}" fill="none" stroke="#22d3ee" stroke-width="2.5"/>
+   <path d="${path(eng)}" fill="none" stroke="#a78bfa" stroke-width="2.5"/>`;
+}
+
+function renderDonut(){
+  const svg=document.getElementById('donut');
+  const total=PLAT.reduce((a,p)=>a+p.share,0);
+  let off=0, r=54, c=2*Math.PI*r;
+  svg.innerHTML=`<g transform="translate(70,70) rotate(-90)">
+    <circle r="${r}" fill="none" stroke="#1a2334" stroke-width="16"/>
+    ${PLAT.map(p=>{
+      const len=p.share/total*c, dash=`${len} ${c-len}`;
+      const el=`<circle r="${r}" fill="none" stroke="${p.color}" stroke-width="16" stroke-dasharray="${dash}" stroke-dashoffset="${-off}" stroke-linecap="butt"/>`;
+      off+=len;return el;
+    }).join('')}
+  </g>
+  <text x="70" y="66" text-anchor="middle" fill="#eef2fb" font-size="22" font-weight="800">${total}%</text>
+  <text x="70" y="84" text-anchor="middle" fill="#8ea0bd" font-size="10">engagement</text>`;
+  document.getElementById('plat').innerHTML=PLAT.map(p=>`
+    <div class="prow"><span class="nm">${p.name}</span>
+      <span class="pbar"><i style="width:${p.share/38*100}%;background:${p.color}"></i></span>
+      <span class="pv">${p.share}%</span></div>`).join('');
+}
+
+function renderPosts(){
+  const posts=[
+    {t:'“5 hooks that tripled our reach 🚀”',p:0,reach:'184K',eng:9.2},
+    {t:'Behind the scenes: launch day',p:2,reach:'142K',eng:8.7},
+    {t:'Carousel: 2026 design trends',p:0,reach:'119K',eng:7.4},
+    {t:'Thread on scaling a startup',p:1,reach:'98K',eng:6.9},
+    {t:'How we hire — full breakdown',p:3,reach:'61K',eng:5.8},
+  ];
+  document.getElementById('posts').innerHTML=posts.map(x=>{
+    const pl=PLAT[x.p];
+    return `<tr><td style="max-width:180px">${x.t}</td>
+      <td><span class="pt"><span class="d" style="background:${pl.color}"></span>${pl.name.split(' ')[0]}</span></td>
+      <td>${x.reach}</td><td class="eng" style="color:${x.eng>8?'#34d399':x.eng>6.5?'#22d3ee':'#8ea0bd'}">${x.eng}%</td></tr>`;
+  }).join('');
+}
+
+const FEED_TPL=[
+  ['❤️','#f472b6','<b>@maya.codes</b> liked your reel','Instagram'],
+  ['🔁','#22d3ee','<b>@devlifedan</b> reposted your thread','X'],
+  ['💬','#a78bfa','<b>@startuplina</b> commented “this is gold”','TikTok'],
+  ['👤','#34d399','<b>+128</b> new followers this hour','LinkedIn'],
+  ['⭐','#f59e0b','<b>@brandhub</b> saved your carousel','Instagram'],
+  ['🔔','#22d3ee','<b>@techweekly</b> mentioned you','X'],
+];
+const feedEl=document.getElementById('feed');
+let feedItems=[];
+function pushFeed(){
+  const t=FEED_TPL[Math.floor(Math.abs(Math.sin(seed++))*FEED_TPL.length)];
+  feedItems.unshift(t);feedItems=feedItems.slice(0,6);
+  feedEl.innerHTML=feedItems.map((x,i)=>`<div class="item" style="opacity:${1-i*0.12}">
+    <span class="fav" style="background:${x[1]}22;color:${x[1]}">${x[0]}</span>
+    <div class="ftx">${x[2]}<div class="fm">${x[3]} · just now</div></div></div>`).join('');
+}
+
+document.getElementById('seg').addEventListener('click',e=>{
+  if(e.target.dataset.r){
+    [...e.currentTarget.children].forEach(b=>b.classList.remove('on'));
+    e.target.classList.add('on');range=+e.target.dataset.r;
+    renderKPIs();renderArea();
+  }
+});
+
+renderKPIs();renderArea();renderDonut();renderPosts();
+for(let i=0;i<4;i++)pushFeed();
+setInterval(pushFeed,3500);
+setInterval(renderArea,6000);
+</script>
+</body>
+</html>
