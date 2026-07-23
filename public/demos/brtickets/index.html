@@ -312,6 +312,16 @@ let toastTimer;
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2400)}
 
 renderSteps(1);
+// Deep-link preview: ?preview jumps straight to the seat-selection view
+if(location.search.includes('preview')){
+  goTrips();
+  const btn=document.querySelector('#trips .trip .btn');
+  if(btn){
+    btn.click();
+    const free=[...Array(32).keys()].map(i=>i+1).filter(n=>!takenSeats.includes(n)).slice(0,2);
+    free.forEach(toggleSeat);
+  }
+}
 </script>
 </body>
 </html>

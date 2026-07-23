@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ChainVote — Blockchain Voting Prototype</title>
+<title>BUDEC — Blockchain Voting Prototype</title>
 <style>
   :root{
     --bg:#070b14;--panel:#0e1524;--soft:#16203a;--line:#22304f;
@@ -82,7 +82,7 @@
 <body>
 <header>
   <div class="bar">
-    <div class="logo">🗳️ <span>Chain<b>Vote</b></span></div>
+    <div class="logo">🗳️ <span>BU<b>DEC</b></span></div>
     <a class="back" href="/#projects">← Portfolio</a>
     <span class="net"><span class="d"></span> Sepolia Testnet · Block <span id="blockNo" class="mono">—</span></span>
   </div>
@@ -267,6 +267,8 @@ setInterval(()=>{
 
 loadState();
 document.getElementById('blockNo').textContent=blockNo;
+// Deep-link preview: ?preview auto-signs-in so the app view is shown immediately
+if(location.search.includes('preview')){signIn(false);}
 </script>
 </body>
 </html>

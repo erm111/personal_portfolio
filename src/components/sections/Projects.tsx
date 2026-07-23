@@ -1,5 +1,10 @@
 import React from 'react';
 import { ExternalLink, Github, Sparkles } from 'lucide-react';
+import ecommerceShot from '../../assets/images/demos/ecommerce.png';
+import taskboardShot from '../../assets/images/demos/taskboard.png';
+import dashboardShot from '../../assets/images/demos/dashboard.png';
+import votingShot from '../../assets/images/demos/voting.png';
+import brticketsShot from '../../assets/images/demos/brtickets.png';
 
 type Project = {
   title: string;
@@ -20,8 +25,7 @@ const projects: Project[] = [
     title: 'E-Commerce Platform',
     description:
       'MERN-style storefront with product filtering, a live-updating inventory, a full cart drawer and a working checkout flow.',
-    image:
-      'https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+    image: ecommerceShot,
     emoji: '🛍️',
     accent: 'from-blue-500 to-violet-500',
     technologies: ['React', 'Node.js', 'MongoDB', 'Express'],
@@ -33,8 +37,7 @@ const projects: Project[] = [
     title: 'Task Management System',
     description:
       'Collaborative Kanban board with drag-and-drop columns, priorities, a live activity feed and real-time-style updates.',
-    image:
-      'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+    image: taskboardShot,
     emoji: '🗂️',
     accent: 'from-sky-500 to-indigo-500',
     technologies: ['React', 'WebSocket', 'PHP', 'MySQL'],
@@ -46,8 +49,7 @@ const projects: Project[] = [
     title: 'Social Media Dashboard',
     description:
       'Analytics dashboard with animated charts, KPI sparklines, a platform breakdown donut and a streaming live-activity feed.',
-    image:
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+    image: dashboardShot,
     emoji: '📊',
     accent: 'from-cyan-500 to-purple-500',
     technologies: ['React', 'Express', 'MongoDB', 'Chart.js'],
@@ -59,8 +61,7 @@ const projects: Project[] = [
     title: 'Blockchain Voting System',
     description:
       'Ethereum-based decentralised voting for university elections — matric-number sign-in, on-chain ballots, an official dashboard and a live vote ledger.',
-    image:
-      'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+    image: votingShot,
     emoji: '🗳️',
     accent: 'from-blue-600 to-cyan-500',
     technologies: ['Solidity', 'Hardhat', 'Ethers.js', 'React'],
@@ -71,8 +72,7 @@ const projects: Project[] = [
     title: 'BRTickets — Bus Booking',
     description:
       'End-to-end bus ticket booking: route search, trip comparison, an interactive seat map and a confirmed e-ticket with a QR code.',
-    image:
-      'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+    image: brticketsShot,
     emoji: '🚌',
     accent: 'from-orange-500 to-amber-500',
     technologies: ['PHP', 'JavaScript', 'SCSS', 'MySQL'],
