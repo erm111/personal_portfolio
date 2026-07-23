@@ -6,15 +6,15 @@
 <title>FlowBoard — Task Management Prototype</title>
 <style>
   :root{
-    --bg:#0c1017;--panel:#141b26;--col:#101722;--line:#232f42;
-    --text:#e9eef7;--muted:#8896ab;--accent:#38bdf8;--accent2:#818cf8;
-    --p-high:#f43f5e;--p-med:#f59e0b;--p-low:#22c55e;--radius:14px;
+    --bg:#f6f7f9;--panel:#ffffff;--col:#eef0f4;--line:#e3e6eb;
+    --text:#1b1f27;--muted:#6b7280;--accent:#6366f1;--accent2:#8b5cf6;
+    --p-high:#e11d48;--p-med:#d97706;--p-low:#16a34a;--radius:10px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Segoe UI',system-ui,sans-serif;background:
-    radial-gradient(900px 500px at 90% -10%,rgba(129,140,248,.14),transparent),var(--bg);
+    radial-gradient(900px 500px at 90% -10%,rgba(99,102,241,.07),transparent),var(--bg);
     color:var(--text);min-height:100vh}
-  header{border-bottom:1px solid var(--line);background:rgba(12,16,23,.8);backdrop-filter:blur(10px);
+  header{border-bottom:1px solid var(--line);background:rgba(255,255,255,.82);backdrop-filter:blur(10px);
     position:sticky;top:0;z-index:20}
   .bar{max-width:1300px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
   .logo{font-weight:800;font-size:20px;display:flex;align-items:center;gap:8px}
@@ -25,8 +25,8 @@
     background:var(--panel);border:1px solid var(--line);padding:7px 13px;border-radius:20px}
   .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:p 1.4s infinite}
   @keyframes p{50%{opacity:.3}}
-  .newbtn{background:linear-gradient(90deg,var(--accent),var(--accent2));border:none;color:#06121f;
-    font-weight:800;padding:10px 16px;border-radius:11px;cursor:pointer;font-size:14px}
+  .newbtn{background:linear-gradient(90deg,var(--accent),var(--accent2));border:none;color:#fff;
+    font-weight:700;padding:10px 16px;border-radius:9px;cursor:pointer;font-size:14px;box-shadow:0 2px 8px rgba(99,102,241,.3)}
   .stats{max-width:1300px;margin:20px auto 0;padding:0 22px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
   .stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
   .stat .n{font-size:26px;font-weight:800}
@@ -35,7 +35,7 @@
   .prog i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2))}
   .board{max-width:1300px;margin:20px auto;padding:0 22px 30px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
   .column{background:var(--col);border:1px solid var(--line);border-radius:var(--radius);padding:12px;min-height:420px;transition:.15s}
-  .column.drag{border-color:var(--accent);background:rgba(56,189,248,.06)}
+  .column.drag{border-color:var(--accent);background:rgba(99,102,241,.07)}
   .chead{display:flex;align-items:center;gap:8px;padding:6px 6px 12px;font-weight:700}
   .cdotc{width:10px;height:10px;border-radius:3px}
   .count{margin-left:auto;background:var(--panel);border:1px solid var(--line);color:var(--muted);
@@ -67,7 +67,7 @@
   .mbtns{display:flex;gap:10px;margin-top:20px}
   .btn{flex:1;padding:12px;border-radius:11px;font-weight:800;cursor:pointer;border:1px solid var(--line);font-size:14px}
   .btn.ghost{background:var(--col);color:var(--text)}
-  .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#06121f;border:none}
+  .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;border:none}
   .feed{position:fixed;bottom:16px;left:16px;font-size:12px;color:var(--muted);background:var(--panel);
     border:1px solid var(--line);padding:9px 14px;border-radius:10px;max-width:320px;opacity:0;transform:translateY(10px);transition:.3s}
   .feed.show{opacity:1;transform:none}

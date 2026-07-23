@@ -6,14 +6,15 @@
 <title>PulseSocial — Analytics Dashboard Prototype</title>
 <style>
   :root{
-    --bg:#0a0f1a;--panel:#111827;--soft:#1a2334;--line:#243247;
-    --text:#eef2fb;--muted:#8ea0bd;--a1:#22d3ee;--a2:#a78bfa;--a3:#f472b6;--a4:#34d399;
-    --up:#34d399;--down:#fb7185;--radius:16px;
+    --bg:#100420;--panel:#1c0d33;--soft:#281447;--line:#3d2168;
+    --text:#f9edff;--muted:#c3a9e0;--a1:#ff5ca8;--a2:#a855f7;--a3:#22d3ee;--a4:#ff9f43;
+    --up:#3ddc97;--down:#ff5c7c;--radius:20px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Segoe UI',system-ui,sans-serif;background:
-    radial-gradient(1000px 500px at 100% -10%,rgba(167,139,250,.15),transparent),
-    radial-gradient(800px 400px at 0% 0%,rgba(34,211,238,.10),transparent),var(--bg);
+    radial-gradient(900px 500px at 100% -10%,rgba(255,92,168,.22),transparent),
+    radial-gradient(820px 460px at 0% 0%,rgba(168,85,247,.20),transparent),
+    radial-gradient(760px 520px at 50% 120%,rgba(34,211,238,.10),transparent),var(--bg);
     color:var(--text);min-height:100vh}
   .wrap{max-width:1280px;margin:0 auto;padding:20px}
   .top{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:22px}
@@ -178,14 +179,14 @@ function renderArea(){
   }
   svg.innerHTML=`
    <defs>
-     <linearGradient id="af" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22d3ee" stop-opacity=".35"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></linearGradient>
-     <linearGradient id="ae" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a78bfa" stop-opacity=".28"/><stop offset="1" stop-color="#a78bfa" stop-opacity="0"/></linearGradient>
+     <linearGradient id="af" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5ca8" stop-opacity=".38"/><stop offset="1" stop-color="#ff5ca8" stop-opacity="0"/></linearGradient>
+     <linearGradient id="ae" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a855f7" stop-opacity=".30"/><stop offset="1" stop-color="#a855f7" stop-opacity="0"/></linearGradient>
    </defs>
-   ${[0,25,50,75,100].map(g=>`<line x1="${pad}" x2="${W-pad}" y1="${H-pad-(g/100)*(H-2*pad)}" y2="${H-pad-(g/100)*(H-2*pad)}" stroke="#243247" stroke-width="1"/>`).join('')}
+   ${[0,25,50,75,100].map(g=>`<line x1="${pad}" x2="${W-pad}" y1="${H-pad-(g/100)*(H-2*pad)}" y2="${H-pad-(g/100)*(H-2*pad)}" stroke="rgba(255,255,255,.07)" stroke-width="1"/>`).join('')}
    <path d="${path(foll,true)}" fill="url(#af)"/>
    <path d="${path(eng,true)}" fill="url(#ae)"/>
-   <path d="${path(foll)}" fill="none" stroke="#22d3ee" stroke-width="2.5"/>
-   <path d="${path(eng)}" fill="none" stroke="#a78bfa" stroke-width="2.5"/>`;
+   <path d="${path(foll)}" fill="none" stroke="#ff5ca8" stroke-width="2.5"/>
+   <path d="${path(eng)}" fill="none" stroke="#a855f7" stroke-width="2.5"/>`;
 }
 
 function renderDonut(){

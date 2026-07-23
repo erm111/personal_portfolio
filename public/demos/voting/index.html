@@ -6,14 +6,15 @@
 <title>BUDEC — Blockchain Voting Prototype</title>
 <style>
   :root{
-    --bg:#070b14;--panel:#0e1524;--soft:#16203a;--line:#22304f;
-    --text:#e9eefb;--muted:#8496b6;--brand:#3b82f6;--brand2:#06b6d4;
-    --good:#22c55e;--warn:#f59e0b;--chain:#f7931a;--radius:16px;
+    --bg:#05070a;--panel:#0b0f0c;--soft:#111813;--line:#1f2b1c;
+    --text:#dcffe1;--muted:#7c9a84;--brand:#c6ff3a;--brand2:#5ef2b0;
+    --good:#c6ff3a;--warn:#ffd23a;--chain:#ffd23a;--radius:4px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',system-ui,sans-serif;background:
-    radial-gradient(1000px 500px at 90% -10%,rgba(6,182,212,.14),transparent),
-    radial-gradient(800px 400px at 0% 0%,rgba(59,130,246,.12),transparent),var(--bg);
+  body{font-family:ui-monospace,'Cascadia Code','Consolas','Courier New',monospace;background:
+    repeating-linear-gradient(rgba(198,255,58,.025) 0 1px,transparent 1px 28px),
+    radial-gradient(900px 500px at 90% -10%,rgba(198,255,58,.10),transparent),
+    radial-gradient(700px 420px at 0% 0%,rgba(255,210,58,.06),transparent),var(--bg);
     color:var(--text);min-height:100vh}
   header{border-bottom:1px solid var(--line);background:rgba(7,11,20,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:20}
   .bar{max-width:1080px;margin:0 auto;padding:13px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
